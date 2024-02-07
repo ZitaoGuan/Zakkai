@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icon-charity.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
