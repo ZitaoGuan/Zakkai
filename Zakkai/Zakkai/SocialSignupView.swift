@@ -119,16 +119,10 @@ struct SocialSignupView: View {
                     .padding(.bottom, 25)
                 
                 
-                
-                SecondaryButton(title: "Sign up with E-mail", onPressed: {
-                    showSignUp.toggle()
-                })
-//                .background( NavigationLink(destination: SignUpView(), isActive: $showSignUp, label: {
-//                    EmptyView()
-//                }) )
-                .navigationTitle("navigate button")
-                .navigationDestination(isPresented: $showSignUp){
-                    EmptyView()
+                NavigationLink(destination: SignUpView(), isActive: $showSignUp) {
+                        SecondaryButton(title: "Sign up with E-mail", onPressed: {
+                            showSignUp.toggle()
+                        })
                 }
                 .padding(.bottom, 20)
                 

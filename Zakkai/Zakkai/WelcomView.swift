@@ -36,29 +36,19 @@ struct WelcomView: View {
                     .foregroundColor(.black)
                     .padding(.bottom, 30)
                 
-                PrimaryButton(title: "Get Started", onPressed: {
-                    showSignUp.toggle()
-                })
-//                .background( NavigationLink(destination: SocialSignupView(), isActive: $showSignUp, label: {
-//                    EmptyView()
-//                }) )
-                .navigationTitle("navigate button")
-                .navigationDestination(isPresented: $showSignUp){
-                    SocialSignupView()
-                }
-                .padding(.bottom, 15)
-                
-                SecondaryButton(title: "I have an account", onPressed: {
-                    showSignIn.toggle()
-                })
-//                .background( NavigationLink(destination: SignInView(), isActive: $showSignIn, label: {
-//                    EmptyView()
-//                }) )
-                .navigationTitle("navigate button")
-                .navigationDestination(isPresented: $showSignIn){
-                    SignInView()
-                }
-                .padding(.bottom, .bottomInsets)
+                NavigationLink(destination: SocialSignupView(), isActive: $showSignUp) {
+                            PrimaryButton(title: "Get Started", onPressed: {
+                                showSignUp.toggle()
+                            })
+                            .padding(.bottom, 15)
+                        }
+
+                        NavigationLink(destination: SignInView(), isActive: $showSignIn) {
+                            SecondaryButton(title: "I have an account", onPressed: {
+                                showSignIn.toggle()
+                            })
+                        }
+                        .padding(.bottom, .bottomInsets)
             }
         }
         .navigationTitle("")

@@ -87,15 +87,10 @@ struct SignUpView: View {
                     .foregroundColor(.gray50)
                     .padding(.bottom, 20)
                 
-                SecondaryButton(title: "Sign In", onPressed: {
-                    showSignIn.toggle()
-                })
-//                .background( NavigationLink(destination: SignInView(), isActive: $showSignIn, label: {
-//                    EmptyView()
-//                }) )
-                .navigationTitle("navigate button")
-                .navigationDestination(isPresented: $showSignIn){
-                    SignInView()
+                NavigationLink(destination: SignInView(), isActive: $showSignIn) {
+                        SecondaryButton(title: "Sign In", onPressed: {
+                            showSignIn.toggle()
+                        })
                 }
                 .padding(.bottom, .bottomInsets + 8)
             }

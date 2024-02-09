@@ -80,14 +80,10 @@ struct SignInView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 15)
                 
-                PrimaryButton(title: "Sign In", onPressed: {
-                    showHome = true
-                })
-//                .background( NavigationLink(destination: MainTabView(), isActive: $showHome, label: {EmptyView()
-//                }) )
-                .navigationTitle("Navigation button")
-                .navigationDestination(isPresented: $showHome) {
-                              MainTabView()
+                NavigationLink(destination: MainTabView(), isActive: $showHome) {
+                        PrimaryButton(title: "Sign In", onPressed: {
+                            showHome.toggle()
+                        })
                 }
                 Spacer()
                 
@@ -98,16 +94,11 @@ struct SignInView: View {
                     .foregroundColor(.gray50)
                     .padding(.bottom, 20)
                 
-                SecondaryButton(title: "Sign Up", onPressed: {
-                    showSignUp = true
-                })
-                .navigationTitle("Navigation")
-                .navigationDestination(isPresented: $showSignUp) {
-                              MainTabView()
+                NavigationLink(destination: SignUpView(), isActive: $showSignUp) {
+                        SecondaryButton(title: "Sign Up", onPressed: {
+                            showSignUp.toggle()
+                        })
                 }
-//                .background( NavigationLink(destination: SignUpView(), isActive: $showSignUp, label: {
-//                    EmptyView()
-//                }) )
                 .padding(.bottom, .bottomInsets + 8)
             }
         }
