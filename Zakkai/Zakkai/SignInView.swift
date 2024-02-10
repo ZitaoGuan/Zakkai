@@ -5,6 +5,7 @@
 //  Created by Zitao Guan on 2/7/24.
 //
 
+import FirebaseAuth
 import SwiftUI
 
 struct SignInView: View {
@@ -13,6 +14,8 @@ struct SignInView: View {
     @State var isRemember: Bool = false
     @State var showSignUp: Bool = false
     @State var showHome: Bool = false
+    @State var invalidCredentialsAlert = false
+    
     var body: some View {
         ZStack{
             Image("welcome_screen")
@@ -32,15 +35,15 @@ struct SignInView: View {
                 
                 RoundTextField(title: "Login", text: $txtLogin, keyboardType: .emailAddress)
                 
-                .padding(.horizontal, 20)
-                .padding(.bottom, 15)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 15)
                 
                 
                 
                 RoundTextField(title: "Passowrd", text: $txtPassword, isPassword: true)
                 
-                .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
                 
                 
                 
@@ -61,7 +64,7 @@ struct SignInView: View {
                         }
                         
                         
-                            
+                        
                     }
                     .foregroundColor(.gray50)
                     
@@ -72,19 +75,20 @@ struct SignInView: View {
                         Text("Forgot Password")
                             .multilineTextAlignment(.center)
                             .font(.customfont(.regular, fontSize: 14))
-                            
+                        
                     }
                     .foregroundColor(.gray50)
-
+                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 15)
                 
                 NavigationLink(destination: MainTabView(), isActive: $showHome) {
-                        PrimaryButton(title: "Sign In", onPressed: {
-                            showHome.toggle()
-                        })
+                    PrimaryButton(title: "Sign In", onPressed: {
+                        signIn()
+                    })
                 }
+                
                 Spacer()
                 
                 Text("if you don't have an account yet?")
@@ -95,9 +99,9 @@ struct SignInView: View {
                     .padding(.bottom, 20)
                 
                 NavigationLink(destination: SignUpView(), isActive: $showSignUp) {
-                        SecondaryButton(title: "Sign Up", onPressed: {
-                            showSignUp.toggle()
-                        })
+                    SecondaryButton(title: "Sign Up", onPressed: {
+                        showSignUp.toggle()
+                    })
                 }
                 .padding(.bottom, .bottomInsets + 8)
             }
@@ -106,8 +110,30 @@ struct SignInView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea()
-
+        .alert("Invalid Credentials", isPresented: $invalidCredentialsAlert) {
+            
+        }
+        
     }
+    
+    
+    func signIn() {
+        Auth.auth().signIn(withEmail: txtLogin, password: txtPassword) { result, error in
+            
+            // invalid credentials
+            if error != nil {
+                invalidCredentialsAlert.toggle()
+            }
+            else {
+                // user signed in
+                if let user = result?.user {
+                    print("\(user) signed in")
+                    showHome.toggle()
+                }
+            }
+        }
+    }
+    
 }
 
 struct SignInView_Previews: PreviewProvider {
