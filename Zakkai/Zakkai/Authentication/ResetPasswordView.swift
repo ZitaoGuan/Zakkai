@@ -38,7 +38,6 @@ struct ResetPasswordView: View {
                                 }
                                 try await resetPassword()
                                 showSentAlert.toggle()
-                                dismiss()
                             } catch{
                                 print(error)
                             }

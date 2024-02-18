@@ -157,6 +157,7 @@
 		B0EA06C42B7425A9002F45A6 /* Zakkai */ = {
 			isa = PBXGroup;
 			children = (
+				E23EF90B2B829FE000FC39C6 /* Authentication */,
 				B0EA06C52B7425A9002F45A6 /* ZakkaiApp.swift */,
 				B0EA06C72B7425A9002F45A6 /* ContentView.swift */,
 				B0EA06C92B7425AA002F45A6 /* Assets.xcassets */,
@@ -184,12 +185,7 @@
 				B0EA071F2B742AEC002F45A6 /* HomeView.swift */,
 				B0EA07212B742B2A002F45A6 /* MainTabView.swift */,
 				B0EA07232B742B51002F45A6 /* SettingsView.swift */,
-				B0EA07252B742C0F002F45A6 /* SocialSignupView.swift */,
 				B0EA07292B742C40002F45A6 /* WelcomView.swift */,
-				B0EA07272B742C25002F45A6 /* SignInView.swift */,
-				B0EA072B2B742C58002F45A6 /* SignUpView.swift */,
-				E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */,
-				E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */,
 			);
 			path = Zakkai;
 			sourceTree = "<group>";
@@ -217,6 +213,18 @@
 				B0EA06E22B7425AB002F45A6 /* ZakkaiUITestsLaunchTests.swift */,
 			);
 			path = ZakkaiUITests;
+			sourceTree = "<group>";
+		};
+		E23EF90B2B829FE000FC39C6 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */,
+				E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */,
+				B0EA07272B742C25002F45A6 /* SignInView.swift */,
+				B0EA072B2B742C58002F45A6 /* SignUpView.swift */,
+				B0EA07252B742C0F002F45A6 /* SocialSignupView.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

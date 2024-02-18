@@ -80,6 +80,7 @@ struct SignUpView: View {
                 
                 PrimaryButton(title: "Get Started, it's free!", onPressed: {
                     signUp()
+                    showSignIn.toggle()
                 })
                 
                 Spacer()
