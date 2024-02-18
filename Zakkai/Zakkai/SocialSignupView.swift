@@ -5,6 +5,7 @@
 //  Created by Zitao Guan on 2/7/24.
 //
 
+import FirebaseAuth
 import SwiftUI
 
 struct SocialSignupView: View {
@@ -18,6 +19,8 @@ struct SocialSignupView: View {
                 .frame(width: .screenWidth, height: .screenHeight)
             
             VStack{
+                
+                
                 
                 Image("app_logo")
                     .resizable()
@@ -117,7 +120,6 @@ struct SocialSignupView: View {
                     .padding(.horizontal, 20)
                     .foregroundColor(.white)
                     .padding(.bottom, 25)
-                
                 
                 NavigationLink(destination: SignUpView(), isActive: $showSignUp) {
                         SecondaryButton(title: "Sign up with E-mail", onPressed: {

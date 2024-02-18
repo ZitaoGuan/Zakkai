@@ -9,12 +9,13 @@ import FirebaseAuth
 import SwiftUI
 
 struct SignInView: View {
-    @State var txtLogin: String = ""
+    @State var txtEmail: String = ""
     @State var txtPassword: String = ""
     @State var isRemember: Bool = false
     @State var showSignUp: Bool = false
     @State var showHome: Bool = false
-    @State var invalidCredentialsAlert = false
+    @State var showingInvalidCredentials = false
+    @State var showingResetPasswordSheet = false
     
     var body: some View {
         ZStack{
@@ -33,14 +34,14 @@ struct SignInView: View {
                 
                 Spacer()
                 
-                RoundTextField(title: "Login", text: $txtLogin, keyboardType: .emailAddress)
+                RoundTextField(title: "Email", text: $txtEmail, keyboardType: .emailAddress)
                 
                     .padding(.horizontal, 20)
                     .padding(.bottom, 15)
                 
                 
                 
-                RoundTextField(title: "Passowrd", text: $txtPassword, isPassword: true)
+                RoundTextField(title: "Password", text: $txtPassword, isPassword: true)
                 
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
@@ -58,7 +59,7 @@ struct SignInView: View {
                                 .resizable()
                                 .frame(width: 20, height: 20)
                             
-                            Text("Forgot Password")
+                            Text("Remember Password")
                                 .multilineTextAlignment(.center)
                                 .font(.customfont(.regular, fontSize: 14))
                         }
@@ -70,7 +71,7 @@ struct SignInView: View {
                     
                     Spacer()
                     Button {
-                        
+                        showingResetPasswordSheet.toggle()
                     } label: {
                         Text("Forgot Password")
                             .multilineTextAlignment(.center)
@@ -85,7 +86,16 @@ struct SignInView: View {
                 
                 NavigationLink(destination: MainTabView(), isActive: $showHome) {
                     PrimaryButton(title: "Sign In", onPressed: {
-                        signIn()
+                        Task{
+                            do {
+                                let user = try await AuthenticationManager.shared.signIn(email: txtEmail, password: txtPassword)
+                                showHome.toggle()
+                                print("\(user) signed in")
+                            } catch{
+                                showingInvalidCredentials.toggle()
+                                print("error: \(error)")
+                            }
+                        }
                     })
                 }
                 
@@ -110,30 +120,16 @@ struct SignInView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea()
-        .alert("Invalid Credentials", isPresented: $invalidCredentialsAlert) {
-            
+        .alert("Invalid Credentials", isPresented: $showingInvalidCredentials) {
+        } message: {
+            Text("Cannot find an account associated with those credentials")
+        }
+        .sheet(isPresented: $showingResetPasswordSheet){
+            ResetPasswordView()
+                .presentationDetents([.medium])
         }
         
     }
-    
-    
-    func signIn() {
-        Auth.auth().signIn(withEmail: txtLogin, password: txtPassword) { result, error in
-            
-            // invalid credentials
-            if error != nil {
-                invalidCredentialsAlert.toggle()
-            }
-            else {
-                // user signed in
-                if let user = result?.user {
-                    print("\(user) signed in")
-                    showHome.toggle()
-                }
-            }
-        }
-    }
-    
 }
 
 struct SignInView_Previews: PreviewProvider {

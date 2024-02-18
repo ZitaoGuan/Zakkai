@@ -43,6 +43,8 @@
 		B0EA072C2B742C58002F45A6 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EA072B2B742C58002F45A6 /* SignUpView.swift */; };
 		B0EA07442B7432F7002F45A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0EA07432B7432F7002F45A6 /* GoogleService-Info.plist */; };
 		B0EA07522B7434B9002F45A6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B0EA07512B7434B9002F45A6 /* FirebaseAuth */; };
+		E22352032B807EEA00F8AD4C /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */; };
+		E23EF90A2B8295EC00FC39C6 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,8 @@
 		B0EA07292B742C40002F45A6 /* WelcomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomView.swift; sourceTree = "<group>"; };
 		B0EA072B2B742C58002F45A6 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		B0EA07432B7432F7002F45A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,9 +185,11 @@
 				B0EA07212B742B2A002F45A6 /* MainTabView.swift */,
 				B0EA07232B742B51002F45A6 /* SettingsView.swift */,
 				B0EA07252B742C0F002F45A6 /* SocialSignupView.swift */,
-				B0EA07272B742C25002F45A6 /* SignInView.swift */,
 				B0EA07292B742C40002F45A6 /* WelcomView.swift */,
+				B0EA07272B742C25002F45A6 /* SignInView.swift */,
 				B0EA072B2B742C58002F45A6 /* SignUpView.swift */,
+				E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */,
+				E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */,
 			);
 			path = Zakkai;
 			sourceTree = "<group>";
@@ -351,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0EA07102B742935002F45A6 /* UpcomingBillRow.swift in Sources */,
+				E23EF90A2B8295EC00FC39C6 /* ResetPasswordView.swift in Sources */,
 				B0EA07042B742889002F45A6 /* SecondaryButton.swift in Sources */,
 				B0EA071C2B742A3C002F45A6 /* SubscriptionModel.swift in Sources */,
 				B0EA07002B74284E002F45A6 /* PrimaryButton.swift in Sources */,
@@ -370,6 +377,7 @@
 				B0EA06F42B7426E5002F45A6 /* ArcShape.swift in Sources */,
 				B0EA07282B742C25002F45A6 /* SignInView.swift in Sources */,
 				B0EA06C82B7425A9002F45A6 /* ContentView.swift in Sources */,
+				E22352032B807EEA00F8AD4C /* AuthenticationManager.swift in Sources */,
 				B0EA07062B7428A7002F45A6 /* SegmentButton.swift in Sources */,
 				B0EA072A2B742C40002F45A6 /* WelcomView.swift in Sources */,
 				B0EA06C62B7425A9002F45A6 /* ZakkaiApp.swift in Sources */,
