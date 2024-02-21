@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
+
     @State var isActive: Bool = false
-    
+
     var body: some View {
         ZStack {
             Image("welcome_screen") // Set the background image

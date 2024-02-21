@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SubScriptionHomeRow: View {
-    @State var sObj: SubscriptionModel = SubscriptionModel(dict: ["name":"Spotify", "icon":"spotify_logo", "price": "5.99"] )
+    @State var sObj: SubscriptionModel = SubscriptionModel(dict: ["name":"Donate", "icon":"Location", "price": "5.99"] )
     var body: some View {
         HStack{
                 
