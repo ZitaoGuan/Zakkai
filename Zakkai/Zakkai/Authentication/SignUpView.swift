@@ -10,11 +10,12 @@ import FirebaseAuth
 
 struct SignUpView: View {
     
-    @State var txtEmail: String = ""
-    @State var txtPassword: String = ""
-    @State var showSignIn: Bool = false
-    @State var showingPasswordAlert = false
-    @State var showingEmailAlert = false
+    @State private var txtEmail: String = ""
+    @State private var txtPassword: String = ""
+    @State private var errorMessage = ""
+    @State private var showSignIn: Bool = false
+    @State private var showingErrorAlert = false
+    @State private var requestBiometricAlert = false
     
     var body: some View {
         ZStack{
@@ -70,7 +71,7 @@ struct SignUpView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
                 
-                Text("Use 8 or more characters with a mix of letters,\nnumbers & symbols.")
+                Text("Use atleast 8 characters, with one number and one symbol.")
                     .multilineTextAlignment(.leading)
                     .font(.customfont(.regular, fontSize: 14))
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -80,7 +81,6 @@ struct SignUpView: View {
                 
                 PrimaryButton(title: "Get Started, it's free!", onPressed: {
                     signUp()
-                    showSignIn.toggle()
                 })
                 
                 Spacer()
@@ -104,32 +104,44 @@ struct SignUpView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea()
-        .alert("Invalid Password", isPresented: $showingPasswordAlert) {
+        .alert("Error", isPresented: $showingErrorAlert) {
         } message: {
-            Text("Please choose a stronger password")
+            Text(errorMessage)
         }
-        .alert("Invalid Email", isPresented: $showingPasswordAlert) {
+        .alert("Message", isPresented: $requestBiometricAlert){
+            Button("No Thanks"){}
+            Button("Yes") {
+                //bioauthenticate
+            }
+        } message: {
+            Text("Would you like to biometric authentication to login in the future?")
         }
+        
     }
     
     func signUp() {
         
         guard firstBar() else {
-            showingPasswordAlert.toggle()
+            errorMessage = "Please choose a stronger password."
+            showingErrorAlert.toggle()
             return;
         }
         
         guard txtEmail.isValidEmail() else{
-            showingEmailAlert.toggle()
+            errorMessage = "Invalid email format."
+            showingErrorAlert.toggle()
             return
         }
         
         Task {
             do{
                 let newUser = try await AuthenticationManager.shared.createUser(email: txtEmail, password: txtPassword)
+                showSignIn.toggle()
+                requestBiometricAlert.toggle()
                 print("user created: \(newUser)")
             }catch{
-                print("error: \(error)")
+                errorMessage = error.localizedDescription
+                showingErrorAlert.toggle()
             }
         }
     }

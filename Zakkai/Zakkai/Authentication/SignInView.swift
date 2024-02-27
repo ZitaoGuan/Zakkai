@@ -14,7 +14,8 @@ struct SignInView: View {
     @State var isRemember: Bool = false
     @State var showSignUp: Bool = false
     @State var showHome: Bool = false
-    @State var showingInvalidCredentials = false
+    @State var showingErrorAlert = false
+    @State var errorMessage = ""
     @State var showingResetPasswordSheet = false
     
     var body: some View {
@@ -86,16 +87,7 @@ struct SignInView: View {
                 
                 NavigationLink(destination: MainTabView(), isActive: $showHome) {
                     PrimaryButton(title: "Sign In", onPressed: {
-                        Task{
-                            do {
-                                let user = try await AuthenticationManager.shared.signIn(email: txtEmail, password: txtPassword)
-                                showHome.toggle()
-                                print("\(user) signed in")
-                            } catch{
-                                showingInvalidCredentials.toggle()
-                                print("error: \(error)")
-                            }
-                        }
+
                     })
                 }
                 
@@ -120,15 +112,28 @@ struct SignInView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea()
-        .alert("Invalid Credentials", isPresented: $showingInvalidCredentials) {
+        .alert("Invalid Credentials", isPresented: $showingErrorAlert) {
         } message: {
-            Text("Cannot find an account associated with those credentials")
+            Text(errorMessage)
         }
         .sheet(isPresented: $showingResetPasswordSheet){
             ResetPasswordView()
                 .presentationDetents([.medium])
         }
         
+    }
+    
+    func signInUser() {
+        Task{
+            do {
+                let user = try await AuthenticationManager.shared.signIn(email: txtEmail, password: txtPassword)
+                showHome.toggle()
+                print("\(user) signed in")
+            } catch{
+                errorMessage = error.localizedDescription
+                showingErrorAlert.toggle()
+            }
+        }
     }
 }
 
