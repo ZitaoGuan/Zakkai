@@ -17,6 +17,9 @@ struct SignUpView: View {
     @State private var showingErrorAlert = false
     @State private var requestBiometricAlert = false
     
+    @KeyChain(key: "faceID_email", account: "FaceIDLogin") var keychainEmail
+    @KeyChain(key: "faceID_password", account: "FaceIDLogin") var keychainPass
+    
     var body: some View {
         ZStack{
             Image("welcome_screen")

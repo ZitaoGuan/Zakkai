@@ -87,7 +87,7 @@ struct SignInView: View {
                 
                 NavigationLink(destination: MainTabView(), isActive: $showHome) {
                     PrimaryButton(title: "Sign In", onPressed: {
-
+                        signInUser()
                     })
                 }
                 

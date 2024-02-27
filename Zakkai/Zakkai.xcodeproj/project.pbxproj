@@ -44,6 +44,7 @@
 		B0EA07522B7434B9002F45A6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B0EA07512B7434B9002F45A6 /* FirebaseAuth */; };
 		E22352032B807EEA00F8AD4C /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */; };
 		E23EF90A2B8295EC00FC39C6 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */; };
+		E28BD00B2B8DA21D00E1CDC5 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28BD00A2B8DA21D00E1CDC5 /* KeyChainManager.swift */; };
 		E2E5FC5F2B869AD00009BD16 /* AddCreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5FC5E2B869AD00009BD16 /* AddCreditCardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +105,7 @@
 		B0EA07432B7432F7002F45A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		E28BD00A2B8DA21D00E1CDC5 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		E2E5FC5E2B869AD00009BD16 /* AddCreditCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCreditCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,6 +225,7 @@
 				B0EA07272B742C25002F45A6 /* SignInView.swift */,
 				B0EA072B2B742C58002F45A6 /* SignUpView.swift */,
 				B0EA07252B742C0F002F45A6 /* SocialSignupView.swift */,
+				E28BD00A2B8DA21D00E1CDC5 /* KeyChainManager.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				B0EA07282B742C25002F45A6 /* SignInView.swift in Sources */,
 				E22352032B807EEA00F8AD4C /* AuthenticationManager.swift in Sources */,
 				B0EA07062B7428A7002F45A6 /* SegmentButton.swift in Sources */,
+				E28BD00B2B8DA21D00E1CDC5 /* KeyChainManager.swift in Sources */,
 				B0EA072A2B742C40002F45A6 /* WelcomView.swift in Sources */,
 				B0EA06C62B7425A9002F45A6 /* ZakkaiApp.swift in Sources */,
 				B0EA07162B7429F1002F45A6 /* ArcModel.swift in Sources */,
