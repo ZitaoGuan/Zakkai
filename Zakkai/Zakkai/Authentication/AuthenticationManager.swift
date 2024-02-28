@@ -5,7 +5,6 @@
 //  Created by Noah Giboney on 2/16/24.
 //
 
-import LocalAuthentication
 import FirebaseAuth
 import Observation
 import SwiftUI
@@ -50,26 +49,4 @@ final class AuthenticationManager {
     func resetPassword(email: String) async throws{
         try await Auth.auth().sendPasswordReset(withEmail: email)
     }
-    
-    func bioAuthenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics , error: &error) {
-            let reason = "We need to unlock your data"
-            
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, error in
-                if success {
-                }
-                else {
-                    //there
-                }
-            }
-        }
-        else {
-            //no biometrics
-        }
-    }
-    
-    
 }

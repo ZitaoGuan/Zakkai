@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    
     @State var isSubscription: Bool = true
     @State var subArr: [SubscriptionModel] = [
         SubscriptionModel(dict: ["name":"Feeding America", "icon":"Feeding_America", "price": "0.59"] )
@@ -126,6 +125,7 @@ struct HomeView: View {
             }
         }
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden()
     }
 }
 

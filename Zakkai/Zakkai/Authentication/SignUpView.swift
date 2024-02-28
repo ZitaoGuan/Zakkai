@@ -14,8 +14,12 @@ struct SignUpView: View {
     @State private var txtPassword: String = ""
     @State private var errorMessage = ""
     @State private var showSignIn: Bool = false
+    @State private var showHome: Bool = false
     @State private var showingErrorAlert = false
+    
+    @AppStorage("biometricStatus") var biometricStatus = false
     @State private var requestBiometricAlert = false
+    
     
     @KeyChain(key: "faceID_email", account: "FaceIDLogin") var keychainEmail
     @KeyChain(key: "faceID_password", account: "FaceIDLogin") var keychainPass
@@ -82,9 +86,11 @@ struct SignUpView: View {
                     .foregroundColor(.gray50)
                     .padding(.bottom, 20)
                 
-                PrimaryButton(title: "Get Started, it's free!", onPressed: {
-                    signUp()
-                })
+                NavigationLink(destination: HomeView(), isActive: $showHome){
+                    PrimaryButton(title: "Get Started, it's free!", onPressed: {
+                        signUp()
+                    })
+                }
                 
                 Spacer()
                 
@@ -111,24 +117,31 @@ struct SignUpView: View {
         } message: {
             Text(errorMessage)
         }
-        .alert("Message", isPresented: $requestBiometricAlert){
-            Button("No Thanks"){}
+        //request for biometric authentication
+        .alert("Future Login", isPresented: $requestBiometricAlert){
+            
+            Button("No") {
+                //proceed to home
+                showHome.toggle()
+            }
             Button("Yes") {
-                //bioauthenticate
+                
+                // enroll in bioauthentication
+                biometricStatus = true
+                
+                //write credentials to keychain
+                keychainEmail = txtEmail.data(using: .utf8)
+                keychainPass = txtPassword.data(using: .utf8)
+                
+                // go to home
+                showHome.toggle()
             }
         } message: {
-            Text("Would you like to biometric authentication to login in the future?")
+            Text("Would you like to use biometric authentication to login in the future?")
         }
-        
     }
     
     func signUp() {
-        
-        guard firstBar() else {
-            errorMessage = "Please choose a stronger password."
-            showingErrorAlert.toggle()
-            return;
-        }
         
         guard txtEmail.isValidEmail() else{
             errorMessage = "Invalid email format."
@@ -136,12 +149,17 @@ struct SignUpView: View {
             return
         }
         
+        guard firstBar() else {
+            errorMessage = "Please choose a stronger password."
+            showingErrorAlert.toggle()
+            return;
+        }
+        
         Task {
             do{
                 let newUser = try await AuthenticationManager.shared.createUser(email: txtEmail, password: txtPassword)
-                showSignIn.toggle()
-                requestBiometricAlert.toggle()
                 print("user created: \(newUser)")
+                requestBiometricAlert.toggle()
             }catch{
                 errorMessage = error.localizedDescription
                 showingErrorAlert.toggle()

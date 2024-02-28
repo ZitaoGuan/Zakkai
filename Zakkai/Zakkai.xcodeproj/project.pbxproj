@@ -221,11 +221,11 @@
 			isa = PBXGroup;
 			children = (
 				E22352022B807EEA00F8AD4C /* AuthenticationManager.swift */,
+				E28BD00A2B8DA21D00E1CDC5 /* KeyChainManager.swift */,
 				E23EF9092B8295EC00FC39C6 /* ResetPasswordView.swift */,
 				B0EA07272B742C25002F45A6 /* SignInView.swift */,
 				B0EA072B2B742C58002F45A6 /* SignUpView.swift */,
 				B0EA07252B742C0F002F45A6 /* SocialSignupView.swift */,
-				E28BD00A2B8DA21D00E1CDC5 /* KeyChainManager.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";

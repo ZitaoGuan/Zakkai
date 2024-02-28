@@ -5,18 +5,24 @@
 //  Created by Zitao Guan on 2/7/24.
 //
 
+import LocalAuthentication
 import FirebaseAuth
 import SwiftUI
 
 struct SignInView: View {
-    @State var txtEmail: String = ""
-    @State var txtPassword: String = ""
-    @State var isRemember: Bool = false
-    @State var showSignUp: Bool = false
-    @State var showHome: Bool = false
-    @State var showingErrorAlert = false
-    @State var errorMessage = ""
-    @State var showingResetPasswordSheet = false
+    
+    @State private var txtEmail: String = ""
+    @State private var txtPassword: String = ""
+    @State private var isRemember: Bool = false
+    @State private var showSignUp: Bool = false
+    @State private var showHome: Bool = false
+    @State private var showingErrorAlert = false
+    @State private var errorMessage = ""
+    @State private var showingResetPasswordSheet = false
+    
+    @KeyChain(key: "faceID_email", account: "FaceIDLogin") var keychainEmail
+    @KeyChain(key: "faceID_password", account: "FaceIDLogin") var keychainPass
+    @AppStorage("biometricStatus") var biometricStatus = false
     
     var body: some View {
         ZStack{
@@ -87,7 +93,7 @@ struct SignInView: View {
                 
                 NavigationLink(destination: MainTabView(), isActive: $showHome) {
                     PrimaryButton(title: "Sign In", onPressed: {
-                        signInUser()
+                        signInUser(email: txtEmail, password: txtPassword)
                     })
                 }
                 
@@ -107,6 +113,13 @@ struct SignInView: View {
                 }
                 .padding(.bottom, .bottomInsets + 8)
             }
+            .onAppear {
+                
+                // if user is enrolled in bioauthenticate
+                if biometricStatus {
+                    bioAuthenticate()
+                }
+            }
         }
         .navigationTitle("")
         .navigationBarHidden(true)
@@ -123,10 +136,44 @@ struct SignInView: View {
         
     }
     
-    func signInUser() {
+    func bioAuthenticate() {
+        
+        // new context
+        let context = LAContext()
+        
+        // handle errors
+        var error: NSError?
+        
+        // if biometric authentication is supported
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics , error: &error) {
+            let reason = "Authenticate To Unlock Your Account."
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, error in
+                if success {
+                    
+                    // login to firebase with keychain credentials
+                    if let emailData = keychainEmail, let passwordData = keychainPass {
+                        signInUser(email: String(data: emailData, encoding: .utf8) ?? "", password: String(data: passwordData, encoding: .utf8) ?? "")
+                    }
+                }
+                else {
+                    // failed to authenticate
+                    if let error = error {
+                        errorMessage = error.localizedDescription
+                        showingErrorAlert.toggle()
+                    }
+                }
+            }
+        }
+        else {
+            //biometric authentication is not supported
+        }
+    }
+    
+    func signInUser(email: String, password: String) {
         Task{
             do {
-                let user = try await AuthenticationManager.shared.signIn(email: txtEmail, password: txtPassword)
+                let user = try await AuthenticationManager.shared.signIn(email: email, password: password)
                 showHome.toggle()
                 print("\(user) signed in")
             } catch{

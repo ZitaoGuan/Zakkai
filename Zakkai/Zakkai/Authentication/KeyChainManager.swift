@@ -13,8 +13,8 @@ struct KeyChain: DynamicProperty {
     @State private var data: Data?
     
     var wrappedValue: Data? {
-        get{data}
-        set {
+        get{KeyChainManager.standard.read(key: key, account: account)}
+        nonmutating  set {
             
             guard let newData = newValue else {
                 data = nil
@@ -22,7 +22,11 @@ struct KeyChain: DynamicProperty {
                 return
             }
             
+            // setting keychain data
             KeyChainManager.standard.save(data: newData, key: key, account: account)
+            
+            // update data
+            data = newData
         }
     }
     
