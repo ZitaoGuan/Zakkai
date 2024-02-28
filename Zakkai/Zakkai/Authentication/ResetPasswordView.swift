@@ -12,7 +12,8 @@ struct ResetPasswordView: View {
     @Environment(\.dismiss) var dismiss
     @State private var email = ""
     @State private var showSentAlert = false
-    @State private var showInvalidEmailAlert = false
+    @State private var showingErrorAlert = false
+    @State private var errorMessage = ""
     
     var body: some View {
         NavigationStack{
@@ -33,13 +34,15 @@ struct ResetPasswordView: View {
                         Task{
                             do {
                                 guard email.isValidEmail() else{
-                                    showInvalidEmailAlert.toggle()
+                                    errorMessage = "Invalid Email Address."
+                                    showingErrorAlert.toggle()
                                     return
                                 }
                                 try await resetPassword()
                                 showSentAlert.toggle()
                             } catch{
-                                print(error)
+                                errorMessage = error.localizedDescription
+                                showingErrorAlert.toggle()
                             }
                         }
                     }
@@ -54,21 +57,17 @@ struct ResetPasswordView: View {
                 }
             }
         }
-        .alert("Reset Sent", isPresented: $showSentAlert) {
-            
+        .alert("Reset Password", isPresented: $showSentAlert) {
         } message: {
             Text("An email has been sent to \(email) to reset your password.")
         }
-        .alert("Error", isPresented: $showInvalidEmailAlert) {
-            
+        .alert("Error", isPresented: $showingErrorAlert) {
         } message: {
-            Text("Invalid email adress.")
+            Text(errorMessage)
         }
     }
     
     func resetPassword() async throws {
-        
-        
         try await AuthenticationManager.shared.resetPassword(email: email)
     }
     
